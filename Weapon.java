@@ -41,7 +41,14 @@ public class Weapon {
         this.value = value;
 
     }
-
+    
+    public interface Printable
+    {
+    void print(List<Weapon> weapons);
+    
+    }     
+            
+            
     public List<Weapon> ReadFile(String filepath) throws FileNotFoundException {
 
         File file = new File(filepath);
