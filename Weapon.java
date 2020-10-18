@@ -8,7 +8,7 @@ package net.htlgrieskirchen.pos3b.lstranzinger.WeaponsProjectRepo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +19,7 @@ import java.util.Scanner;
  * @author lukas
  */
 public class Weapon {
-    
+
     String name;
     CombatType combatType;
     DamageType damageType;
@@ -39,40 +39,34 @@ public class Weapon {
         this.speed = speed;
         this.strength = strength;
         this.value = value;
-        
+
     }
-    
-    
-    public List<Weapon> ReadFile(String filepath) throws FileNotFoundException        
-    {
-        
+
+    public List<Weapon> ReadFile(String filepath) throws FileNotFoundException {
+
         File file = new File(filepath);
         List<Weapon> weapons = new ArrayList<>();
-                
+
         Scanner sc = new Scanner(file);
         sc.nextLine();
-        while(sc.hasNext())
-        {
+        while (sc.hasNext()) {
             String[] attributes = sc.nextLine().split(";");
-        Weapon weapon = new Weapon(attributes[0], CombatType.valueOf(attributes[1].toUpperCase()) ,DamageType.valueOf(attributes[2].toUpperCase()), Integer.parseInt(attributes[3]),Integer.parseInt(attributes[4]),Integer.parseInt(attributes[5]), Integer.parseInt(attributes[6]));
-        weapons.add(weapon);
-        
-        
+            Weapon weapon = new Weapon(attributes[0], CombatType.valueOf(attributes[1].toUpperCase()), DamageType.valueOf(attributes[2].toUpperCase()), Integer.parseInt(attributes[3]), Integer.parseInt(attributes[4]), Integer.parseInt(attributes[5]), Integer.parseInt(attributes[6]));
+            weapons.add(weapon);
+
             System.out.println(weapon.toString());
-        
+
         }
-        
-        
-        
+
         return weapons;
     }
-    
-     public String getName() {
-      return this.name;
+
+    public String getName() {
+        return this.name;
     }
-    
+
     public CombatType getCombatType() {
-     return this.combatType;
+        return this.combatType;
     }
 
     public DamageType getDamageType() {
@@ -81,7 +75,7 @@ public class Weapon {
 
     public int getDamage() {
         return this.damage;
-                }
+    }
 
     public int getSpeed() {
         return this.speed;
@@ -90,13 +84,13 @@ public class Weapon {
     public int getMinStrength() {
         return this.strength;
     }
-    
+
     public int getValue() {
         return this.value;
     }
-    
+
     public void setValue(int value) {
-       this.value = value;
+        this.value = value;
     }
 
     @Override
@@ -148,20 +142,41 @@ public class Weapon {
         return true;
     }
 
-    public List<Weapon> sortList(List<Weapon> weapons)
-            {
-            weapons.sort((e1,e2) -> e1.getDamage() - e2.getDamage());
-                Collections.reverse(weapons);
-                return weapons;
-                
-            
+    public List<Weapon> sortList(List<Weapon> weapons) {
+        weapons.sort((e1, e2) -> e1.getDamage() - e2.getDamage());
+        Collections.reverse(weapons);
+        return weapons;
+
+    }
+
+    public List<Weapon> sortListAlph(List<Weapon> weapons) {
+
+        weapons.sort((Weapon e1, Weapon e2) -> {
+
+            if (e1.getCombatType().toString().equals(e2.getCombatType().toString()) != true) {
+
+                return e1.getCombatType().toString().compareTo(e2.getCombatType().toString());
+
+            } else if (e1.getDamageType().toString().equals(e2.getDamageType().toString()) != true) {
+
+                return e1.getDamageType().toString().compareTo(e2.getDamageType().toString());
+
+            } else if (e1.getName().equals(e2.getName()) != true) {
+
+                return e1.getName().compareTo(e2.getName());
+
             }
-    
+
+           return 0;
+
+        });
+
+        return weapons;
+    }
 
     @Override
     public String toString() {
         return "Weapon{" + "name=" + name + ", combatType=" + combatType + ", damageType=" + damageType + ", damage=" + damage + ", speed=" + speed + ", minStrength=" + strength + ", value=" + value + '}';
     }
 
-    
 }

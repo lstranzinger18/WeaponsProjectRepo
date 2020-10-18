@@ -5,18 +5,16 @@
  */
 package net.htlgrieskirchen.pos3b.lstranzinger.WeaponsProjectRepo;
 
-import java.io.FileNotFoundException;
-
 /**
  *
  * @author lukas
  */
-public class Main {
+public enum CombatType {
     
-    public static void main(String[] args) throws FileNotFoundException {
-        Weapon wp = new Weapon();
-        
-        
-        wp.ReadFile("weapons.csv");
-    }
+    
+    MELEE,
+    RANGED,
+    NONE,
+    
+    
 }
